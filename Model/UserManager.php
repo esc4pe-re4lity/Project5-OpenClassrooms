@@ -1,0 +1,80 @@
+<?php
+
+require_once 'User.php';
+require_once 'Manager.php';
+
+class UserManager extends Manager {
+
+    protected $db;
+
+    public function __construct(PDO $db) {
+        $this->db = $db;
+    }
+
+    public function isValid(User $user) {
+        $req = $this->db->prepare('SELECT pseudo, email FROM users WHERE pseudo=:pseudo OR email=:email');
+        $req->execute([
+            'pseudo' => $user->getPseudo(),
+            'email' => $user->getEmail()]);
+        if ($req->rowCount() === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function add(User $user) {
+        $req = $this->db->prepare('INSERT INTO user(pseudo, email, password, creationDate)'
+                . 'VALUES (:pseudo, :email, :password, NOW())');
+        $req->execute([
+            'pseudo' => $user->getPseudo(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword()
+        ]);
+        $user->hydrate([
+            'id' => PDO::lastInsertId()
+        ]);
+    }
+
+    public function get($id) {
+        $req = $this->db->prepare('SELECT * FROM user WHERE id=:id');
+        $req->execute(['id' => $id]);
+        $req->setFetchMode(PDO::FETCH_CLASS || PDO::FETCH_PROPS_LATE, 'User');
+        $users = $req->fetchAll();
+        return $users;
+    }
+
+    public function getId(User $user) {
+        $req = $this->db->prepare('SELECT id FROM user WHERE pseudo=:pseudo AND email=:email');
+    }
+
+    public function update(User $user) {
+        $req = $this->db->prepare('UPDATE user SET pseudo=:pseudo, email=:email WHERE id=:id');
+        $req->execute([
+            'pseudo' => $user->getPseudo(),
+            'email' => $user->getEmail(),
+            'id' => $user->getId()
+        ]);
+    }
+
+    public function updateDetails(User $user) {
+        $req = $this->db->prepare('UPDATE user SET name=:name, lastName=:lastName, address=:address WHERE id=:id');
+        $req->execute([
+            'name' => $user->getName(),
+            'lastName' => $user->getLastname(),
+            'address' => $user->getAddress(),
+            'id' => $user->getId()
+        ]);
+    }
+
+    public function delete($id) {
+        
+    }
+
+    public function login(User $user) {
+        
+    }
+
+}
+
+?>
