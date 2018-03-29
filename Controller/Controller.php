@@ -18,11 +18,11 @@ class Controller {
     public function addUser($data) {
         $user = new User($data);
         $userManager = new UserManager();
-        $res=$userManager->isValid($user);
-        if($res === true){
+        $res = $userManager->isValid($user);
+        if ($res === true) {
             $userManager->add($user);
             return $user;
-        }else{
+        } else {
             return $res;
         }
     }
@@ -30,8 +30,13 @@ class Controller {
     public function loginUser($data) {
         $user = new User($data);
         $userManager = new UserManager;
-        $userManager->login($user);
-        return $user;
+        $res = $userManager->login($user);
+        if ($res === true) {
+            $userManager->add($user);
+            return $user;
+        } else {
+            return $res;
+        }
     }
 
 }
