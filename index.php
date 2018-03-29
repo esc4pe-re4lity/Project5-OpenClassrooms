@@ -8,6 +8,7 @@
 
 define('ROOT', realpath('Controller/Rooter.php'));
 define('CONTROLLER', realpath('Controller/Controller.php'));
+define('AUTOLOAD', realpath('Public/lib/autoload.php'));
 define('MODEL', realpath('Model'));
 define('VIEW', realpath('View'));
 

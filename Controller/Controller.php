@@ -11,8 +11,7 @@
  *
  * @author Fiamma
  */
-require(MODEL . '/User.php');
-require(MODEL . '/UserManager.php');
+require(AUTOLOAD);
 
 class Controller {
 
