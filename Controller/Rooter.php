@@ -30,8 +30,8 @@ class Rooter {
                             'password' => filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
                             'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS)
                         ];
-                        $user = $controller->addUser($data);
-                        var_dump($user);
+                        $res = $controller->addUser($data);
+                        var_dump($res);
                     }else{
                         
                     }

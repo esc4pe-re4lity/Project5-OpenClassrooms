@@ -19,8 +19,13 @@ class Controller {
     public function addUser($data) {
         $user = new User($data);
         $userManager = new UserManager();
-        $userManager->add($user);
-        return $user;
+        $res=$userManager->isValid($user);
+        if($res === true){
+            $userManager->add($user);
+            return $user;
+        }else{
+            return $res;
+        }
     }
 
     public function loginUser($data) {

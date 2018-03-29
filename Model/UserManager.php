@@ -6,7 +6,7 @@ require_once 'Manager.php';
 class UserManager extends Manager {
 
     public function isValid(User $user) {
-        $req = $this->db->prepare('SELECT pseudo, email FROM users WHERE pseudo=:pseudo OR email=:email');
+        $req = $this->db->prepare('SELECT pseudo, email FROM user WHERE pseudo=:pseudo OR email=:email');
         $req->execute([
             'pseudo' => $user->getPseudo(),
             'email' => $user->getEmail()]);
