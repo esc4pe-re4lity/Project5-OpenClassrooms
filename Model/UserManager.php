@@ -26,44 +26,44 @@ class UserManager extends Manager {
             'password' => $user->getPassword()
         ]);
         $user->hydrate([
-            'id' => $this->db->lastInsertId(),
+            'idUser' => $this->db->lastInsertId(),
             'isAdmin' => 0,
             'creationDate' => date("Y-m-d H:i:s")
         ]);
     }
 
-    public function get($id) {
-        $req = $this->db->prepare('SELECT * FROM user WHERE id=:id');
-        $req->execute(['id' => $id]);
+    public function get($idUser) {
+        $req = $this->db->prepare('SELECT * FROM user WHERE idUser=:idUser');
+        $req->execute(['idUser' => $idUser]);
         $req->setFetchMode(PDO::FETCH_CLASS || PDO::FETCH_PROPS_LATE, 'User');
         $users = $req->fetchAll();
         return $users;
     }
 
-    public function getId(User $user) {
-        $req = $this->db->prepare('SELECT id FROM user WHERE pseudo=:pseudo OR email=:email');
+    public function getIdUser(User $user) {
+        $req = $this->db->prepare('SELECT idUser FROM user WHERE pseudo=:pseudo OR email=:email');
     }
 
     public function update(User $user) {
-        $req = $this->db->prepare('UPDATE user SET pseudo=:pseudo, email=:email WHERE id=:id');
+        $req = $this->db->prepare('UPDATE user SET pseudo=:pseudo, email=:email WHERE idUser=:idUser');
         $req->execute([
             'pseudo' => $user->getPseudo(),
             'email' => $user->getEmail(),
-            'id' => $user->getId()
+            'idUser' => $user->getIdUser()
         ]);
     }
 
     public function updateDetails(User $user) {
-        $req = $this->db->prepare('UPDATE user SET name=:name, lastName=:lastName, address=:address WHERE id=:id');
+        $req = $this->db->prepare('UPDATE user SET name=:name, lastName=:lastName, address=:address WHERE idUser=:idUser');
         $req->execute([
             'name' => $user->getName(),
             'lastName' => $user->getLastname(),
             'address' => $user->getAddress(),
-            'id' => $user->getId()
+            'idUser' => $user->getIdUser()
         ]);
     }
 
-    public function delete($id) {
+    public function delete($idUser) {
         
     }
 
