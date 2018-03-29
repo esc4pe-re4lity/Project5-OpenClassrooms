@@ -11,14 +11,23 @@
  *
  * @author Fiamma
  */
-require(MODEL.'/User.php');
-require(MODEL.'/UserManager.php');
+require(MODEL . '/User.php');
+require(MODEL . '/UserManager.php');
 
 class Controller {
-    public function addUser($data){
+
+    public function addUser($data) {
         $user = new User($data);
         $userManager = new UserManager();
         $userManager->add($user);
         return $user;
     }
+
+    public function loginUser($data) {
+        $user = new User($data);
+        $userManager = new UserManager;
+        $userManager->login($user);
+        return $user;
+    }
+
 }

@@ -2,7 +2,7 @@
 
 class User {
 
-    protected $id,
+    protected $idUser,
             $pseudo,
             $email,
             $password,
@@ -28,8 +28,8 @@ class User {
         }
     }
 
-    public function getId() {
-        return $this->id;
+    public function getIdUser() {
+        return $this->idUser;
     }
 
     public function getPseudo() {
@@ -68,8 +68,8 @@ class User {
         return $this->address;
     }
 
-    public function setId($id) {
-        $this->id = (int) $id;
+    public function setIdUser($idUser) {
+        $this->idUser = (int) $idUser;
     }
 
     public function setPseudo($pseudo) {

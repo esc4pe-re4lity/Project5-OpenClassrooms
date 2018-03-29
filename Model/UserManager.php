@@ -41,7 +41,7 @@ class UserManager extends Manager {
     }
 
     public function getId(User $user) {
-        $req = $this->db->prepare('SELECT id FROM user WHERE pseudo=:pseudo AND email=:email');
+        $req = $this->db->prepare('SELECT id FROM user WHERE pseudo=:pseudo OR email=:email');
     }
 
     public function update(User $user) {
@@ -68,7 +68,18 @@ class UserManager extends Manager {
     }
 
     public function login(User $user) {
-        
+        $req = $this->db->prepare('SELECT * FROM user WHERE pseudo=:pseudo AND password=:password');
+        $req->execute([
+            'pseudo' => $user->getPseudo(),
+            'password' => $user->getPassword(),
+        ]);
+        $row = $req->fetch();
+        if ($row['pseudo'] === $user->getPseudo() && $row['password'] == $user->getPassword()) {
+            $user->hydrate($row);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
