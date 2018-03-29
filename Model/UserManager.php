@@ -5,12 +5,6 @@ require_once 'Manager.php';
 
 class UserManager extends Manager {
 
-    protected $db;
-
-    public function __construct(PDO $db) {
-        $this->db = $db;
-    }
-
     public function isValid(User $user) {
         $req = $this->db->prepare('SELECT pseudo, email FROM users WHERE pseudo=:pseudo OR email=:email');
         $req->execute([
@@ -32,7 +26,9 @@ class UserManager extends Manager {
             'password' => $user->getPassword()
         ]);
         $user->hydrate([
-            'id' => PDO::lastInsertId()
+            'id' => $this->db->lastInsertId(),
+            'isAdmin' => 0,
+            'creationDate' => date("Y-m-d H:i:s")
         ]);
     }
 

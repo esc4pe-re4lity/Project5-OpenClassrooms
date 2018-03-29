@@ -11,6 +11,14 @@
  *
  * @author Fiamma
  */
+require(MODEL.'/User.php');
+require(MODEL.'/UserManager.php');
+
 class Controller {
-    //put your code here
+    public function addUser($data){
+        $user = new User($data);
+        $userManager = new UserManager();
+        $userManager->add($user);
+        return $user;
+    }
 }

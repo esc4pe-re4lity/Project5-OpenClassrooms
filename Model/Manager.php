@@ -8,7 +8,7 @@ abstract class Manager {
         $this->loadDB();
     }
 
-    public static function loadDB() {
+    public function loadDB() {
         try {
             $dbConfiguration = require 'config.php';
             $dsn = "mysql:dbname=" . $dbConfiguration['db_name'] . "; host=" . $dbConfiguration['db_host'] . "";

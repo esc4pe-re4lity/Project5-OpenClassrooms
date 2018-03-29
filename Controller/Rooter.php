@@ -22,7 +22,21 @@ class Rooter {
         $controller = new Controller();
 
         if (isset($_GET['action'])) {
-            
+            if ($_GET['action'] === 'createAccount') {
+                if (isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirmPassword'])) {
+                    if (!empty(trim($_POST['pseudo'])) && !empty(trim($_POST['email'])) && !empty(trim($_POST['password'])) && !empty(trim($_POST['confirmPassword']))) {
+                        $data = [
+                            'pseudo' => filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                            'password' => filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                            'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS)
+                        ];
+                        $user = $controller->addUser($data);
+                        var_dump($user);
+                    }
+                } else {
+                    require(VIEW . '/adventure-time-shop/user/createAccount.php');
+                }
+            }
         } else {
             
         }
