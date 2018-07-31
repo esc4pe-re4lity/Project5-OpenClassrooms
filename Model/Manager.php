@@ -10,7 +10,7 @@ abstract class Manager {
 
     public function loadDB() {
         try {
-            $dbConfiguration = require 'config.php';
+            $dbConfiguration = require 'configDB.php';
             $dsn = "mysql:dbname=" . $dbConfiguration['db_name'] . "; host=" . $dbConfiguration['db_host'] . "";
             $this->db = new PDO($dsn, $dbConfiguration['db_user'], $dbConfiguration['db_password']);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

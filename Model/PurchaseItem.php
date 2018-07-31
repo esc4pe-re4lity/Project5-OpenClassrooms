@@ -13,50 +13,67 @@
  */
 class PurchaseItem {
 
-    protected $id,
-            $purchase,
-            $item,
-            $itemQuantity,
-            $itemPrice;
+    protected $idPurchaseItem,
+            $idPurchase,
+            $idItem,
+            $quantityItem,
+            $priceItem;
 
-    public function getId() {
-        return $this->id;
+    public function __construct($data = []) {
+        if (!empty($data)) {
+            $this->hydrate($data);
+        }
     }
 
-    public function getPurchase() {
-        return $this->purchase;
+    public function hydrate($data) {
+        foreach ($data as $attr => $value) {
+            $method = 'set' . ucfirst($attr);
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    }
+    
+    public function getIdPurchaseItem() {
+        return $this->idPurchaseItem;
     }
 
-    public function getItem() {
-        return $this->item;
+    public function getIdPurchase() {
+        return $this->idPurchase;
     }
 
-    public function getItemQuantity() {
-        return $this->itemQuantity;
+    public function getIdItem() {
+        return $this->idItem;
     }
 
-    public function getItemPrice() {
-        return $this->itemPrice;
+    public function getQuantityItem() {
+        return $this->quantityItem;
     }
 
-    public function setId($id) {
-        $this->id = (int) $id;
+    public function getPriceItem() {
+        return $this->priceItem;
     }
 
-    public function setPurchase($purchase) {
-        $this->purchase = (int) $purchase;
+    public function setIdPurchaseItem($idPurchaseItem) {
+        $this->idPurchaseItem = (int) $idPurchaseItem;
     }
 
-    public function setItem($item) {
-        $this->item = (int) $item;
+    public function setIdPurchase($idPurchase) {
+        $this->idPurchase = (int) $idPurchase;
     }
 
-    public function setItemQuantity($itemQuantity) {
-        $this->itemQuantity = (int) $itemQuantity;
+    public function setIdItem($idItem) {
+        $this->idItem = (int) $idItem;
     }
 
-    public function setItemPrice($itemPrice) {
-        $this->itemPrice = (int) $itemPrice;
+    public function setQuantityItem($quantityItem) {
+        $this->quantityItem = (int) $quantityItem;
     }
+
+    public function setPriceItem($priceItem) {
+        $this->priceItem = (int) $priceItem;
+    }
+
+   
 
 }

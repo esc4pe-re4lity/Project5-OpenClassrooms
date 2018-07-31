@@ -1,20 +1,45 @@
 <?php
 
-
 require_once 'User.php';
 
-
 class Address {
-  protected $id,
+
+    protected $idAddress,
+            $idUser,
+            $nameAddress,
             $line1,
             $line2,
             $postcode,
             $city,
             $country,
-            $user;
+            $fullName,
+            $inUse;
 
-    public function getId() {
-        return $this->id;
+    public function __construct($data = []) {
+        if (!empty($data)) {
+            $this->hydrate($data);
+        }
+    }
+
+    public function hydrate($data) {
+        foreach ($data as $attr => $value) {
+            $method = 'set' . ucfirst($attr);
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    } 
+
+    public function getIdAddress() {
+        return $this->idAddress;
+    }
+
+    public function getIdUser() {
+        return $this->idUser;
+    }
+
+    public function getNameAddress() {
+        return $this->nameAddress;
     }
 
     public function getLine1() {
@@ -34,15 +59,39 @@ class Address {
     }
 
     public function getCountry() {
-        return $this->country;
+        switch ($this->country){
+            case 'fr': return 'France';
+                break;
+            case 'be': return 'Belgium';
+                break;
+            case 'es': return 'Spain';
+                break;
+            case 'it': return 'Italy';
+                break;
+            case 'en': return 'United Kingdom';
+                break;
+            default : return $this->country;
+        }
     }
 
-    public function getUser() {
-        return $this->user;
+    public function getFullName() {
+        return $this->fullName;
+    }
+    
+    public function getInUse(){
+        return $this->inUse;
     }
 
-    public function setId($id) {
-        $this->id = (int)$id;
+    public function setIdAddress($idAddress) {
+        $this->idAddress = (int) $idAddress;
+    }
+
+    public function setIdUser($idUser) {
+        $this->idUser = (int) $idUser;
+    }
+
+    public function setNameAddress($nameAddress) {
+        $this->nameAddress = $nameAddress;
     }
 
     public function setLine1($line1) {
@@ -54,7 +103,7 @@ class Address {
     }
 
     public function setPostcode($postcode) {
-        $this->postcode = (int)$postcode;
+        $this->postcode = $postcode;
     }
 
     public function setCity($city) {
@@ -65,14 +114,18 @@ class Address {
         $this->country = $country;
     }
 
-    public function setUser($user) {
-        $this->user = (int)$user;
+    public function setFullName($fullName) {
+        $this->fullName = $fullName;
+    }
+    
+    public function setInUse($inUse){
+        $this->inUse = (int) $inUse;
     }
 
-      
-  public function getAddress(): string
-  {
-  }
+    public function getAddress(): string {
+        
+    }
 
 }
+
 ?>

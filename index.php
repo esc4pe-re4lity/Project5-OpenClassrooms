@@ -9,6 +9,10 @@
 define('ROOT', realpath('Controller/Rooter.php'));
 define('CONTROLLER', realpath('Controller/Controller.php'));
 define('AUTOLOAD', realpath('Public/lib/autoload.php'));
+define('STYLE', realpath('Public/css/style.css'));
+define('IMAGE', realpath('Public/images'));
+define('COSENARY', realpath('vendor/cosenary/instagram'));
+define('STRIPE', realpath('vendor/stripe/autoload.php'));
 define('MODEL', realpath('Model'));
 define('VIEW', realpath('View'));
 

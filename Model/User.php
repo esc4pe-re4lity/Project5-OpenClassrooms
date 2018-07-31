@@ -3,13 +3,13 @@
 class User {
 
     protected $idUser,
-            $pseudo,
+            $firstName,
+            $lastName,
             $email,
             $password,
+            $image,
             $isAdmin,
             $creationDate,
-            $name,
-            $lastname,
             $phoneNumber,
             $address;
 
@@ -32,8 +32,12 @@ class User {
         return $this->idUser;
     }
 
-    public function getPseudo() {
-        return $this->pseudo;
+    public function getFirstName() {
+        return $this->firstName;
+    }
+
+    public function getLastName() {
+        return $this->lastName;
     }
 
     public function getEmail() {
@@ -44,36 +48,35 @@ class User {
         return $this->password;
     }
 
+    public function getImage() {
+        return $this->image;
+    }
+
     public function getIsAdmin() {
         return $this->isAdmin;
     }
 
     public function getCreationDate() {
-        return $this->creationDate;
-    }
-
-    public function getName() {
-        return $this->name;
-    }
-
-    public function getLastname() {
-        return $this->lastname;
+        $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::NONE, 'Europe/Paris', IntlDateFormatter::GREGORIAN);
+        $formattedDate = new DateTime($this->creationDate);
+        $creationDate = $formatter->format($formattedDate);
+        return $creationDate;
     }
 
     public function getPhoneNumber() {
         return $this->phoneNumber;
     }
 
-    public function getAddress() {
-        return $this->address;
-    }
-
     public function setIdUser($idUser) {
         $this->idUser = (int) $idUser;
     }
 
-    public function setPseudo($pseudo) {
-        $this->pseudo = $pseudo;
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
+    }
+
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
     }
 
     public function setEmail($email) {
@@ -81,35 +84,34 @@ class User {
     }
 
     public function setPassword($password) {
-        $this->password=hash('sha256',$password);
+        $this->password = hash('sha256', $password);
+    }
+
+    public function setImage($image) {
+        $this->image = $image;
     }
 
     public function setIsAdmin($isAdmin) {
-        if($isAdmin >=0 && $isAdmin <=1){
-            $this->isAdmin=$isAdmin;
-        }
+        $this->isAdmin = (int) $isAdmin;
     }
 
     public function setCreationDate($creationDate) {
-        $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::SHORT, 'Europe/Paris', IntlDateFormatter::GREGORIAN);
-        $formattedDate = new DateTime($creationDate);
-        $this->creationDate = $formatter->format($formattedDate);
-    }
-
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function setLastname($lastname) {
-        $this->lastname = $lastname;
+        $this->creationDate = $creationDate;
     }
 
     public function setPhoneNumber($phoneNumber) {
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function setAddress($address) {
-        $this->address = (int) $address;
+    public function chooseCharacter() {
+        $characters = ['finn', 'jake', 'marceline', 'lsp', 'pb', 'rainicorn', 'bmo', 'fp', 'ice-king'];
+        $character = array_rand($characters, 1);
+        $this->setImage($characters[$character]);
+    }
+
+    public function getImageURL() {
+        $imageURL = IMAGE . '/at-shop/' . $this->image . '.png';
+        return $imageURL;
     }
 
 }

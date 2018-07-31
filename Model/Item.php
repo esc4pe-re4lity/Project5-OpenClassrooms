@@ -6,75 +6,117 @@ require_once 'WishlistItem.php';
 
 
 class Item {
-  public static $CATEGORY_HAT = 1;
+  protected $idItem,
+            $idInstagramPost,
+            $nameItem,
+            $descriptionItem,
+            $creationDateItem,
+            $srcThumbResolutionItem,
+            $srcLowResolutionItem,
+            $srcStandardResolutionItem,
+            $priceItem,
+            $remainingItem;
 
-  public static $CATEGORY_SHIRT = 2;
-
-  public static $CATEGORY_PLUSH = 3;
-
-  protected $id,
-            $name,
-            $picture,
-            $description,
-            $availableQuantity,
-            $available,
-            $category;
-
-
-    public function getId() {
-        return $this->id;
+    public function __construct($data = []) {
+        if (!empty($data)) {
+            $this->hydrate($data);
+        }
     }
 
-    public function getName() {
-        return $this->name;
+    public function hydrate($data) {
+        foreach ($data as $attr => $value) {
+            $method = 'set' . ucfirst($attr);
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    }
+    public function getIdItem() {
+        return $this->idItem;
     }
 
-    public function getPicture() {
-        return $this->picture;
+    public function getIdInstagramPost() {
+        return $this->idInstagramPost;
     }
 
-    public function getDescription() {
-        return $this->description;
+    public function getNameItem() {
+        return $this->nameItem;
     }
 
-    public function getAvailableQuantity() {
-        return $this->availableQuantity;
+    public function getDescriptionItem() {
+        return $this->descriptionItem;
     }
 
-    public function getAvailable() {
-        return $this->available;
+    public function getCreationDateItem() {
+        return $this->creationDateItem;
     }
 
-    public function getCategory() {
-        return $this->category;
+    public function getFormattedCreationDateItem() {
+        $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE, 'Europe/Paris', IntlDateFormatter::GREGORIAN);
+        $imageDate = new DateTime();
+        $imageDate->setTimestamp($this->creationDateItem);
+        $creationDateItem = $formatter->format($imageDate);
+        return $creationDateItem;
     }
 
-    public function setId($id) {
-        $this->id = (int)$id;
+    public function getSrcThumbResolutionItem() {
+        return $this->srcThumbResolutionItem;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function getSrcLowResolutionItem() {
+        return $this->srcLowResolutionItem;
     }
 
-    public function setPicture($picture) {
-        $this->picture = $picture;
+    public function getSrcStandardResolutionItem() {
+        return $this->srcStandardResolutionItem;
     }
 
-    public function setDescription($description) {
-        $this->description = $description;
+    public function getPriceItem() {
+        return $this->priceItem;
     }
 
-    public function setAvailableQuantity($availableQuantity) {
-        $this->availableQuantity = (int)$availableQuantity;
+    public function getRemainingItem() {
+        return $this->remainingItem;
     }
 
-    public function setAvailable($available) {
-        $this->available = (int)$available;
+    public function setIdItem($idItem) {
+        $this->idItem = (int) $idItem;
     }
 
-    public function setCategory($category) {
-        $this->category = $category;
+    public function setIdInstagramPost($idInstagramPost) {
+        $this->idInstagramPost = $idInstagramPost;
+    }
+
+    public function setNameItem($nameItem) {
+        $this->nameItem = $nameItem;
+    }
+
+    public function setDescriptionItem($descriptionItem) {
+        $this->descriptionItem = $descriptionItem;
+    }
+
+    public function setCreationDateItem($creationDateItem) {
+        $this->creationDateItem = $creationDateItem;
+    }
+
+    public function setSrcThumbResolutionItem($srcThumbResolutionItem) {
+        $this->srcThumbResolutionItem = $srcThumbResolutionItem;
+    }
+
+    public function setSrcLowResolutionItem($srcLowResolutionItem) {
+        $this->srcLowResolutionItem = $srcLowResolutionItem;
+    }
+
+    public function setSrcStandardResolutionItem($srcStandardResolutionItem) {
+        $this->srcStandardResolutionItem = $srcStandardResolutionItem;
+    }
+
+    public function setPriceItem($priceItem) {
+        $this->priceItem = (int) $priceItem;
+    }
+
+    public function setRemainingItem($remainingItem) {
+        $this->remainingItem = (int) $remainingItem;
     }
 
 

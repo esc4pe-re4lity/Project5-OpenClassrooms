@@ -13,17 +13,26 @@
  */
 class PurchaseItemManager extends Manager {
 
-    protected $db;
-
-    public function __construct(PDO $db) {
-        $this->db = $db;
-    }
-
     public function add(PurchaseItem $purchaseItem) {
-        
+        $req = $this->db->prepare('INSERT INTO purchase_item(idPurchase, idItem, quantityItem, priceItem)'.''
+                . 'VALUES(:idPurchase, :idItem, :quantityItem, :priceItem)');
+        $req->execute([
+            'idPurchase' => $purchaseItem->getIdPurchase(),
+            'idItem' => $purchaseItem->getIdItem(),
+            'quantityItem' => $purchaseItem->getQuantityItem(),
+            'priceItem' => $purchaseItem->getPriceItem()
+        ]);
+        $purchaseItem->hydrate([
+            'idPurchaseItem' => $this->db->lastInsertId()
+        ]);
     }
 
-    public function get($id) {
+    public function get(Purchase $purchase) {
+        $req = $this->db->prepare('SELECT * FROM purchase_item WHERE idPurchase=:idPurchase');
+        $req->execute(['idPurchase' => $purchase->getIdPurchase()]);
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'PurchaseItem');
+        $res = $req->fetchAll();
+        return $res;
         
     }
 

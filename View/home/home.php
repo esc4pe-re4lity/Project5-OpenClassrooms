@@ -2,7 +2,7 @@
 <html lang="fr" prefix="og: http://ogp.me/ns#">
     <head>
         <meta charset="utf-8" />
-        <meta name="description" content="<?= $description ?>">
+        <meta name="description" content="cv fiamma pellicane web developper">
         
         <!-- Tag Open Graph pour les aperçus des liens -->
         <meta property="og:title" content=""/>
@@ -12,38 +12,30 @@
         <meta property="og:image" content=""/>
         <meta name="viewport" content="width=device-width" />
         
-        <title><?= $title ?></title> <!-- moins de 70 caractère c'est mieux -->
+        <title>Fiamma Pellicane - Home</title> <!-- moins de 70 caractère c'est mieux -->
         <link rel="icon" href="">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="public/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="public/css/style-home.css" />
         <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     </head>
         
     <body>
         <header>
-            <?= $header ?>
+            <?php require ('header.php'); ?>
         </header>
         <div id="page-content">
-            <section class="section1">
-                <?= $section ?>
-            </section>
-            <section class="section2">
-                <?= $section ?>
-            </section>
-            <section class="section3">
-                <?= $section ?>
-            </section>
-            <section class="section4">
-                <?= $section ?>
-            </section>
-            <section class="section5">
-                <?= $section ?>
-            </section>
+            <?php require ('aboutMe.php'); ?>
+            <?php require ('adventureTimeShop.php'); ?>
+            <?php require ('travels.php'); ?>
+            <?php require ('OC.php'); ?>
+            <?php require ('contactMe.php'); ?>
         </div>
         <footer>
-            <?= $footer ?>
+            <?php require ('footer.php'); ?>
         </footer>
-        <script src="public/js/functions.js"></script>
-        <?= $script ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="Public/js/home/aboutMe.js"></script>
+        <script src="Public/js/home/menu.js"></script>
+        <script src="Public/js/home/main.js"></script>
     </body>
 </html>

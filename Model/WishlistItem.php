@@ -6,32 +6,47 @@ require_once 'Item.php';
 
 
 class WishlistItem {
-  protected $id,
-            $wishlist,
-            $item;
+  protected $idWishlistItem,
+            $idWishlist,
+            $idItem;
 
-    public function getId() {
-        return $this->id;
+    public function __construct($data = []) {
+        if (!empty($data)) {
+            $this->hydrate($data);
+        }
     }
 
-    public function getWishlist() {
-        return $this->wishlist;
+    public function hydrate($data) {
+        foreach ($data as $attr => $value) {
+            $method = 'set' . ucfirst($attr);
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    }
+    
+    public function getIdWishlistItem() {
+        return $this->idWishlistItem;
     }
 
-    public function getItem() {
-        return $this->item;
+    public function getIdWishlist() {
+        return $this->idWishlist;
     }
 
-    public function setId($id) {
-        $this->id = (int)$id;
+    public function getIdItem() {
+        return $this->idItem;
     }
 
-    public function setWishlist($wishlist) {
-        $this->wishlist = (int)$wishlist;
+    public function setIdWishlistItem($idWishlistItem) {
+        $this->idWishlistItem = (int) $idWishlistItem;
     }
 
-    public function setItem($item) {
-        $this->item = (int)$item;
+    public function setIdWishlist($idWishlist) {
+        $this->idWishlist = (int) $idWishlist;
+    }
+
+    public function setIdItem($idItem) {
+        $this->idItem = (int) $idItem;
     }
 
 
